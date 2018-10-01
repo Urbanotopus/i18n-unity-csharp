@@ -29,7 +29,7 @@ Beta - Version 0.9.4
 // Replace MyApp with your own namespace
 namespace MyApp {
   public class I18n : Mgl.I18n {
-    protected static readonly I18n instance = new I18n();
+    private static readonly I18n _instance = new I18n();
 
     // Customize your languages here
     protected static string[] locales = new string[] {
@@ -41,7 +41,7 @@ namespace MyApp {
 
     public static I18n Instance {
       get {
-        return instance;
+        return _instance;
       }
     }
   }

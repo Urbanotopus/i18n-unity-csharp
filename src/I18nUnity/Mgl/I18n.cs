@@ -9,9 +9,9 @@ namespace Mgl
     {
         private static JSONNode translationData = null;
 
-        protected static readonly I18n instance = new I18n();
-
         protected static string[] locales = new string[] { "en-US", "fr-FR", "es-ES" };
+
+        private static readonly I18n _instance = new I18n();
 
         private static string _currentLocale = "en-US";
 
@@ -32,7 +32,7 @@ namespace Mgl
         {
             get
             {
-                return instance;
+                return _instance;
             }
         }
 
@@ -43,6 +43,9 @@ namespace Mgl
                 string localConfigPath = _localePath + _currentLocale;
                 // Read the file as one string.
                 TextAsset configText = Resources.Load(localConfigPath) as TextAsset;
+                if (!configText) {
+                    throw new Exception("Missing resource file: " + localConfigPath);
+                }
                 translationData = JSON.Parse(configText.text);
             }
             else if (_isLoggingMissing)
